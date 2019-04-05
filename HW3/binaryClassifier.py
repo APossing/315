@@ -1,6 +1,11 @@
 import collections
 import numpy as np
+import sys
 
+
+orig_stdout = sys.stdout
+f = open('out.txt', 'w')
+sys.stdout = f
 
 def readStopWords(filename, stopList):
     f = open(filename)
@@ -167,7 +172,7 @@ def OCRAvg(trainingData, trainingDataLabels, testingData, testingDataLabels):
                 weights[predicted] -= trainingData[row]
                 weights[expected] += trainingData[row]
 
-        print("Run", iteration+1, ":", (len(trainingData) - failed), "/", len(trainingData))
+        print("Run", iteration+1, ":", (len(trainingData) - failed), "/", len(trainingData), (len(trainingData) - failed)/len(trainingData))
         OCRTest(testingData, testingDataLabels, avgWeights[1])
     return weights
 
